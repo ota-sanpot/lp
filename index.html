@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="ja" class="scroll-smooth">
+<html lang="ja" class="scroll-smooth scroll-pt-28">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大田区サンポット | 食と街をつなぐPRデザイン</title>
+    <title>大田区サンポット | お店の魅力を最大限に食と街をつなぐ</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="icon" href="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/ロゴ.png">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/ロゴ.png">
+    <!-- Favicon (Fallback to generic if remote not found) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+
+    <link rel="icon" href="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/favicon.ico">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/favicon.ico">
     
     <!-- Icons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
@@ -24,7 +27,7 @@
                 extend: {
                     colors: {
                         primary: '#1A1A1A',     // 墨色
-                        secondary: '#8E806A',   // 利休茶（アクセント）
+                        secondary: '#C4A982',   // 枯草色（少し明るく調整して視認性アップ）
                         base: '#FDFBF7',        // 生成り色
                         surface: '#F5F2EA',     // 薄卵色
                     },
@@ -35,6 +38,15 @@
                     letterSpacing: {
                         widest: '.15em',
                         jumbo: '.25em',
+                    },
+                    animation: {
+                        'scroll-line': 'scrollLine 2s cubic-bezier(0.77, 0, 0.175, 1) infinite',
+                    },
+                    keyframes: {
+                        scrollLine: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' }
+                        }
                     }
                 }
             }
@@ -51,7 +63,7 @@
             height: 100vh;
             pointer-events: none;
             z-index: 50;
-            opacity: 0.03;
+            opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
@@ -82,9 +94,28 @@
         .image-hover-container:hover img {
             transform: scale(1.05);
         }
+
+        /* アコーディオンアニメーション修正版 */
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease-out;
+        }
+        .accordion-content.is-open {
+            grid-template-rows: 1fr;
+        }
+        .accordion-inner {
+            overflow: hidden;
+            min-height: 0; /* 追加：高さ0になった時に中身が確実に見えなくなるようにする */
+            opacity: 0;    /* 追加：フェード効果でより綺麗に見せる */
+            transition: opacity 0.3s ease-out;
+        }
+        .accordion-content.is-open .accordion-inner {
+            opacity: 1;
+        }
     </style>
 </head>
-<body class="bg-base text-primary antialiased relative">
+<body class="bg-base text-primary antialiased relative selection:bg-secondary selection:text-white">
     
     <!-- Noise Overlay -->
     <div class="bg-noise"></div>
@@ -93,42 +124,43 @@
     <header id="header" class="fixed w-full top-0 z-40 transition-all duration-500 py-6">
         <nav class="container mx-auto px-6 md:px-12">
             <div class="flex items-center justify-between">
-                <a href="#" class="text-2xl font-serif font-bold tracking-widest relative z-50 mix-blend-difference text-white md:text-primary transition-colors duration-300" id="logo-text">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-serif font-bold tracking-widest relative z-50 mix-blend-difference text-white transition-colors duration-300 group" id="logo-text">
                     大田区サンポット
                 </a>
                 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-10 text-sm tracking-widest font-medium">
-                    <a href="#about" class="hover:text-secondary transition relative group">
-                        哲学
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-secondary transition-all group-hover:w-full"></span>
+                <div class="hidden md:flex items-center space-x-10 text-sm tracking-widest font-medium" id="desktop-menu">
+                    <a href="#about" class="text-white hover:text-secondary transition relative group py-2">
+                        大田区サンポットとは
+                        <span class="absolute bottom-0 left-0 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="#features" class="hover:text-secondary transition relative group">
+                    <a href="#features" class="text-white hover:text-secondary transition relative group py-2">
                         特徴
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-secondary transition-all group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="#flow" class="hover:text-secondary transition relative group">
-                        流れ
-                        <span class="absolute -bottom-2 left-0 w-0 h-px bg-secondary transition-all group-hover:w-full"></span>
+                    <a href="#flow" class="text-white hover:text-secondary transition relative group py-2">
+                        PRの流れ
+                        <span class="absolute bottom-0 left-0 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="#contact" class="px-8 py-3 bg-primary text-white rounded-sm hover:bg-secondary transition duration-300">
-                        ご相談
+                    <a href="#contact" class="px-8 py-3 bg-white text-black rounded-sm hover:bg-secondary hover:text-white transition duration-300 shadow-lg">
+                        PRのご依頼はこちら
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="menu-btn" class="md:hidden z-50 text-primary focus:outline-none">
+                <button id="menu-btn" class="md:hidden z-50 text-white mix-blend-difference focus:outline-none p-2" aria-label="Menu">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </nav>
         
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-base z-40 flex flex-col justify-center items-center space-y-8 opacity-0 pointer-events-none transition-opacity duration-300">
-            <a href="#about" class="text-xl font-serif mobile-link">哲学</a>
-            <a href="#features" class="text-xl font-serif mobile-link">特徴</a>
-            <a href="#flow" class="text-xl font-serif mobile-link">流れ</a>
-            <a href="#contact" class="text-xl font-serif mobile-link">ご相談</a>
+        <div id="mobile-menu" class="fixed inset-0 bg-base z-40 flex flex-col justify-center items-center space-y-8 opacity-0 pointer-events-none transition-all duration-300 transform scale-95">
+            <a href="#about" class="text-xl font-serif mobile-link hover:text-secondary transition">大田区サンポットとは</a>
+            <a href="#features" class="text-xl font-serif mobile-link hover:text-secondary transition">特徴</a>
+            <a href="#flow" class="text-xl font-serif mobile-link hover:text-secondary transition">PRの流れ</a>
+            <a href="#contact" class="text-xl font-serif mobile-link hover:text-secondary transition">PRのご依頼はこちら</a>
         </div>
     </header>
 
@@ -136,36 +168,43 @@
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <!-- Background Image with Gradient -->
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Japanese Restaurant Atmosphere" class="w-full h-full object-cover brightness-[0.7]">
-            <div class="absolute inset-0 bg-gradient-to-t from-base via-transparent to-black/20"></div>
+            <!-- 視認性を高めるため brightness を調整 -->
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Japanese Restaurant Atmosphere" class="w-full h-full object-cover brightness-[0.6]">
+            <!-- グラデーションを少し強化してテキスト可読性確保 -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
         </div>
 
-        <div class="container mx-auto px-6 relative z-10 text-center md:text-left md:flex md:items-end md:justify-between h-full pb-20 pt-32">
+        <!-- Content -->
+        <!-- pb-32 md:pb-20: 下部に余白を十分に取り、スクロール表示との重なりを防ぐ -->
+        <div class="container mx-auto px-6 relative z-10 text-center md:text-left md:flex md:items-end md:justify-between h-full pt-32 pb-32 md:pb-20">
             
             <!-- Main Copy -->
             <div class="reveal-element md:w-2/3">
-                <p class="text-white/80 tracking-jumbo text-sm mb-6 md:mb-8 font-medium">OTA-KU SUNPOT PR AGENCY</p>
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-medium text-white leading-tight mb-8">
-                    <span class="block mb-2">街に愛される、</span>
-                    <span class="block pl-4 md:pl-0">一皿の物語を。</span>
+                <p class="text-white/80 tracking-jumbo text-sm mb-6 md:mb-8 font-medium">OTA-SANPOT PR AGENCY</p>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-medium text-white leading-tight mb-8 drop-shadow-lg">
+                    <span class="block mb-2">大田区で愛される</span>
+                    <span class="block pl-4 md:pl-0">貴店の魅力を。</span>
                 </h1>
-                <p class="text-white/90 text-lg md:text-xl font-light tracking-widest leading-relaxed max-w-lg">
-                    大田区の食文化を深く理解し、<br class="md:hidden">貴店の隠れた魅力を<br class="hidden md:inline">
-                    デザインと言葉の力で輝かせます。
+                <p class="text-white/90 text-lg md:text-xl font-light tracking-widest leading-relaxed max-w-lg drop-shadow-md">
+                    大田区の食文化を深く理解し、<br class="md:hidden">貴店の魅力を<br class="hidden md:inline">
+                    デザインと映像の力で輝かせます。
                 </p>
             </div>
 
             <!-- Vertical Decoration (Hidden on mobile) -->
             <div class="hidden md:block absolute right-12 top-1/2 -translate-y-1/2">
-                <div class="writing-vertical text-white/40 font-serif text-lg tracking-[0.5em] h-[400px] border-l border-white/20 pl-8">
+                <div class="writing-vertical text-white/50 font-serif text-lg tracking-[0.5em] h-[400px] border-l border-white/20 pl-8 select-none">
                     地域に根ざし、未来を灯す
                 </div>
             </div>
 
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 md:left-12 md:translate-x-0 flex flex-col items-center gap-4">
-                <span class="text-white/60 text-xs tracking-widest uppercase">Scroll</span>
-                <div class="w-px h-16 bg-gradient-to-b from-white to-transparent"></div>
+            <!-- Scroll Indicator (修正：右下配置に変更) -->
+            <!-- right-6 md:right-12: 右側に配置 -->
+            <div class="absolute bottom-8 right-6 md:right-12 flex flex-col items-center gap-4 z-20 pointer-events-none">
+                <span class="text-white/80 text-xs tracking-widest uppercase font-medium">Scroll</span>
+                <div class="w-px h-20 bg-white/20 overflow-hidden">
+                    <div class="w-full h-1/2 bg-white animate-scroll-line"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -183,16 +222,16 @@
                 </div>
                 
                 <div class="md:w-1/2 space-y-12 reveal-element" style="transition-delay: 0.2s;">
-                    <p class="text-lg leading-loose text-gray-600 font-light text-justify">
+                    <p class="text-lg leading-loose text-gray-700 font-light text-justify">
                         蒲田の賑わい、田園調布の静寂、大森の活気。<br>
                         大田区には多様な顔があり、それぞれの街に愛される「味」があります。
                     </p>
-                    <p class="text-lg leading-loose text-gray-600 font-light text-justify">
+                    <p class="text-lg leading-loose text-gray-700 font-light text-justify">
                         私たちは、単なる集客支援ではありません。<br>
                         店主様の想い、料理へのこだわり、空間の温度感。<br>
                         それらを丁寧に掬い上げ、「ブランド」として結晶化させます。
                     </p>
-                    <p class="text-xl font-serif text-primary tracking-widest pt-8">
+                    <p class="text-xl font-serif text-primary tracking-widest pt-8 border-t border-gray-200 inline-block">
                         想いを、物語を、体験を。
                     </p>
                 </div>
@@ -200,10 +239,10 @@
         </div>
     </section>
 
-    <!-- Services / Features Section (Zig Zag Layout) -->
+    <!-- Services / Features Section -->
     <section id="features" class="py-24 bg-surface relative overflow-hidden">
         <!-- Decorative Circle -->
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E8E4D9] rounded-full blur-3xl opacity-60 -translate-y-1/2 translate-x-1/3"></div>
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E8E4D9] rounded-full blur-3xl opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-24 reveal-element">
@@ -214,13 +253,13 @@
             <div class="space-y-24 md:space-y-32">
                 <!-- Feature 01 -->
                 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
-                    <div class="md:w-1/2 image-hover-container reveal-element">
-                        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Local Community" class="w-full aspect-[4/3] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+                    <div class="md:w-1/2 image-hover-container reveal-element w-full">
+                        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Local Community" class="w-full aspect-[4/3] object-cover shadow-xl grayscale hover:grayscale-0 transition duration-700">
                     </div>
                     <div class="md:w-1/2 reveal-element">
-                        <span class="text-6xl font-serif text-secondary/20 block mb-4 -ml-2">01</span>
+                        <span class="text-6xl font-serif text-secondary/30 block mb-4 -ml-2 font-bold">01</span>
                         <h3 class="text-2xl md:text-3xl font-serif font-bold mb-6">地域密着型のアプローチ</h3>
-                        <p class="text-gray-600 leading-loose mb-8">
+                        <p class="text-gray-700 leading-loose mb-8 text-justify">
                             大田区の文化や住民層を深く理解したクリエイティブチームが担当。<br>
                             広域に向けた画一的な広告ではなく、足元の商圏に確実に響く、温度感のあるPR戦略を立案します。
                         </p>
@@ -229,13 +268,13 @@
 
                 <!-- Feature 02 -->
                 <div class="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
-                    <div class="md:w-1/2 image-hover-container reveal-element">
-                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Brand Design" class="w-full aspect-[4/3] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+                    <div class="md:w-1/2 image-hover-container reveal-element w-full">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Brand Design" class="w-full aspect-[4/3] object-cover shadow-xl grayscale hover:grayscale-0 transition duration-700">
                     </div>
                     <div class="md:w-1/2 reveal-element">
-                        <span class="text-6xl font-serif text-secondary/20 block mb-4 -ml-2">02</span>
+                        <span class="text-6xl font-serif text-secondary/30 block mb-4 -ml-2 font-bold">02</span>
                         <h3 class="text-2xl md:text-3xl font-serif font-bold mb-6">世界観を作るデザイン</h3>
-                        <p class="text-gray-600 leading-loose mb-8">
+                        <p class="text-gray-700 leading-loose mb-8 text-justify">
                             ロゴ、メニュー、SNSの写真一枚に至るまで。<br>
                             一貫した美意識で統一することで、お客様の記憶に残る強いブランドを作り上げます。
                         </p>
@@ -244,13 +283,13 @@
 
                 <!-- Feature 03 -->
                 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
-                    <div class="md:w-1/2 image-hover-container reveal-element">
-                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Result Data" class="w-full aspect-[4/3] object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+                    <div class="md:w-1/2 image-hover-container reveal-element w-full">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Result Data" class="w-full aspect-[4/3] object-cover shadow-xl grayscale hover:grayscale-0 transition duration-700">
                     </div>
                     <div class="md:w-1/2 reveal-element">
-                        <span class="text-6xl font-serif text-secondary/20 block mb-4 -ml-2">03</span>
+                        <span class="text-6xl font-serif text-secondary/30 block mb-4 -ml-2 font-bold">03</span>
                         <h3 class="text-2xl md:text-3xl font-serif font-bold mb-6">成果へのコミットメント</h3>
-                        <p class="text-gray-600 leading-loose mb-8">
+                        <p class="text-gray-700 leading-loose mb-8 text-justify">
                             美しいだけでなく、結果を出すデザインを。<br>
                             来店数やエンゲージメントなどの数値を定期的に分析し、PDCAを回しながら成長をサポートします。
                         </p>
@@ -264,58 +303,61 @@
     <section id="flow" class="py-24 md:py-40">
         <div class="container mx-auto px-6 max-w-5xl">
             <div class="text-center mb-24 reveal-element">
-                <h2 class="font-serif text-3xl md:text-5xl font-medium mb-4">共創のプロセス</h2>
-                <p class="text-gray-500 text-sm tracking-widest">WORK FLOW</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-medium mb-4">PRの流れ</h2>
+                <p class="text-gray-400 text-sm tracking-widest font-medium">PR FLOW</p>
             </div>
 
             <div class="relative">
                 <!-- Center Line -->
-                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gray-300 md:-translate-x-1/2"></div>
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gray-200 md:-translate-x-1/2"></div>
 
                 <div class="space-y-16">
                     <!-- Step 1 -->
                     <div class="relative flex flex-col md:flex-row items-center md:justify-between reveal-element group">
                         <div class="md:w-5/12 text-right order-2 md:order-1 pl-12 md:pl-0">
-                            <h3 class="text-xl font-serif font-bold mb-2">お問い合わせ</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">フォームよりご連絡ください。<br>担当者より1営業日以内にご返信いたします。</p>
+                            <h3 class="text-xl font-serif font-bold mb-2 group-hover:text-secondary transition-colors">お問い合わせ</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">下部フォームよりご連絡ください。</p>
                         </div>
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-primary rounded-full md:-translate-x-1/2 border-4 border-base z-10 top-6 md:top-1/2 md:-translate-y-1/2 md:order-2"></div>
-                        <div class="md:w-5/12 order-3 pl-12 md:pl-0"></div>
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-primary rounded-full md:-translate-x-1/2 border-4 border-base z-10 top-6 md:top-1/2 md:-translate-y-1/2 md:order-2 group-hover:scale-125 transition-transform duration-300"></div>
+                        <div class="md:w-5/12 order-3 pl-12 md:pl-0 md:text-left">
+                            <span class="font-serif text-4xl text-gray-200 hidden md:block group-hover:text-secondary/20 transition-colors">01</span>
+                        </div>
                     </div>
 
                     <!-- Step 2 -->
                     <div class="relative flex flex-col md:flex-row items-center md:justify-between reveal-element group">
                         <div class="md:w-5/12 order-2 md:order-3 pl-12 md:pl-0">
-                            <h3 class="text-xl font-serif font-bold mb-2">ヒアリング・視察</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">実際にお店へ伺い、空気感や味を体験。<br>課題の本質を探ります。</p>
+                            <h3 class="text-xl font-serif font-bold mb-2 group-hover:text-secondary transition-colors">PR内容・日程調整</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">PR商品の内容や日程等の擦り合わせをさせていただきます。</p>
                         </div>
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-white border-2 border-primary rounded-full md:-translate-x-1/2 z-10 top-6 md:top-1/2 md:-translate-y-1/2 md:order-2"></div>
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-white border-2 border-primary rounded-full md:-translate-x-1/2 z-10 top-6 md:top-1/2 md:-translate-y-1/2 md:order-2 group-hover:bg-primary transition-colors duration-300"></div>
                         <div class="md:w-5/12 text-right order-1 md:order-1 pl-12 md:pl-0">
-                             <span class="font-serif text-4xl text-gray-200">02</span>
+                             <span class="font-serif text-4xl text-gray-200 group-hover:text-secondary/20 transition-colors">02</span>
                         </div>
                     </div>
 
                     <!-- Step 3 -->
                     <div class="relative flex flex-col md:flex-row items-center md:justify-between reveal-element group">
                         <div class="md:w-5/12 text-right order-2 md:order-1 pl-12 md:pl-0">
-                            <h3 class="text-xl font-serif font-bold mb-2">プランのご提案</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">貴店だけのオーダーメイドプランを作成。<br>お見積りと共にプレゼンテーションします。</p>
+                            <h3 class="text-xl font-serif font-bold mb-2 group-hover:text-secondary transition-colors">来店取材</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">貴店へ伺い、撮影および飲食をさせていただきます。</p>
                         </div>
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-white border-2 border-primary rounded-full md:-translate-x-1/2 z-10 top-6 md:top-1/2 md:-translate-y-1/2 md:order-2"></div>
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-white border-2 border-primary rounded-full md:-translate-x-1/2 z-10 top-6 md:top-1/2 md:-translate-y-1/2 md:order-2 group-hover:bg-primary transition-colors duration-300"></div>
                         <div class="md:w-5/12 order-3 pl-12 md:pl-0">
-                             <span class="font-serif text-4xl text-gray-200 md:hidden">03</span>
+                             <span class="font-serif text-4xl text-gray-200 md:hidden block mb-2 group-hover:text-secondary/20 transition-colors">03</span>
+                             <span class="font-serif text-4xl text-gray-200 hidden md:block group-hover:text-secondary/20 transition-colors">03</span>
                         </div>
                     </div>
 
                     <!-- Step 4 -->
                     <div class="relative flex flex-col md:flex-row items-center md:justify-between reveal-element group">
                         <div class="md:w-5/12 order-2 md:order-3 pl-12 md:pl-0">
-                            <h3 class="text-xl font-serif font-bold mb-2">プロジェクト始動</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">ご契約後、専任チームを結成。<br>二人三脚で目標達成を目指します。</p>
+                            <h3 class="text-xl font-serif font-bold mb-2 group-hover:text-secondary transition-colors">投稿の作成・投稿</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">投稿を作成し、ご確認いただいた上で投稿いたします。</p>
                         </div>
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-white border-2 border-primary rounded-full md:-translate-x-1/2 z-10 top-6 md:top-1/2 md:-translate-y-1/2 md:order-2"></div>
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-white border-2 border-primary rounded-full md:-translate-x-1/2 z-10 top-6 md:top-1/2 md:-translate-y-1/2 md:order-2 group-hover:bg-primary transition-colors duration-300"></div>
                         <div class="md:w-5/12 text-right order-1 md:order-1 pl-12 md:pl-0">
-                             <span class="font-serif text-4xl text-gray-200">04</span>
+                             <span class="font-serif text-4xl text-gray-200 group-hover:text-secondary/20 transition-colors">04</span>
                         </div>
                     </div>
                 </div>
@@ -323,125 +365,142 @@
         </div>
     </section>
 
-    <!-- FAQ Section (Minimal Accordion) -->
-    <section class="py-24 bg-surface">
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-surface">
         <div class="container mx-auto px-6 max-w-3xl">
             <h2 class="font-serif text-3xl md:text-4xl text-center mb-16 reveal-element">よくあるご質問</h2>
             
             <div class="space-y-4">
-                <div class="bg-base p-6 md:p-8 rounded-sm shadow-sm reveal-element cursor-pointer group">
-                    <h3 class="font-bold flex justify-between items-center">
-                        個人経営の小さなカフェですが依頼可能ですか？
-                        <span class="text-secondary text-xl transition-transform group-hover:rotate-45">+</span>
-                    </h3>
-                    <p class="text-gray-600 text-sm mt-4 leading-relaxed hidden">
-                        もちろんです。私たちは規模の大小に関わらず、そのお店にしかない魅力を発信することを得意としています。個人店様向けのライトプランもご用意しております。
-                    </p>
+                <!-- FAQ Item 1 -->
+                <div class="bg-base rounded-sm shadow-sm reveal-element cursor-pointer group faq-item overflow-hidden">
+                    <div class="p-6 md:p-8 flex justify-between items-center">
+                        <h3 class="font-bold text-lg md:text-xl pr-8">掲載まではどれくらいの時間がかかりますか？</h3>
+                        <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner px-6 md:px-8 pb-8">
+                            <p class="text-gray-700 text-sm leading-loose border-t border-gray-100 pt-4">
+                                基本的には来店から1~2週間以内に投稿・掲載いたします。
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-base p-6 md:p-8 rounded-sm shadow-sm reveal-element cursor-pointer group">
-                    <h3 class="font-bold flex justify-between items-center">
-                        写真は撮影してもらえますか？
-                        <span class="text-secondary text-xl transition-transform group-hover:rotate-45">+</span>
-                    </h3>
-                    <p class="text-gray-600 text-sm mt-4 leading-relaxed hidden">
-                        はい、プロのカメラマンによる撮影が可能です。料理写真から内観、ポートレートまで、ブランドイメージに合わせた高品質な写真素材を制作します。
-                    </p>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-base rounded-sm shadow-sm reveal-element cursor-pointer group faq-item overflow-hidden">
+                    <div class="p-6 md:p-8 flex justify-between items-center">
+                        <h3 class="font-bold text-lg md:text-xl pr-8">投稿や記事に店舗のこだわり（食材や想いなど）を盛り込むことはできますか？</h3>
+                        <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner px-6 md:px-8 pb-8">
+                            <p class="text-gray-700 text-sm leading-loose border-t border-gray-100 pt-4">
+                                もちろん可能です。来店時にぜひ具体的なエピソードやこだわりポイントをお教えください。
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-base p-6 md:p-8 rounded-sm shadow-sm reveal-element cursor-pointer group">
-                    <h3 class="font-bold flex justify-between items-center">
-                        契約期間の縛りはありますか？
-                        <span class="text-secondary text-xl transition-transform group-hover:rotate-45">+</span>
-                    </h3>
-                    <p class="text-gray-600 text-sm mt-4 leading-relaxed hidden">
-                        基本的なブランド構築には最低3ヶ月を推奨していますが、単発のプロモーションやイベント支援など、柔軟に対応可能です。まずはご相談ください。
-                    </p>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-base rounded-sm shadow-sm reveal-element cursor-pointer group faq-item overflow-hidden">
+                    <div class="p-6 md:p-8 flex justify-between items-center">
+                        <h3 class="font-bold text-lg md:text-xl pr-8">一度PRいただいたのですが、再度PR依頼しても良いですか？</h3>
+                        <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner px-6 md:px-8 pb-8">
+                            <p class="text-gray-700 text-sm leading-loose border-t border-gray-100 pt-4">
+                                可能です。例えば、季節限定メニューや商品の変更等に合わせて再度取材の上、PRさせていただきます。
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-base rounded-sm shadow-sm reveal-element cursor-pointer group faq-item overflow-hidden">
+                    <div class="p-6 md:p-8 flex justify-between items-center">
+                        <h3 class="font-bold text-lg md:text-xl pr-8">費用はいくらくらいかかりますか？</h3>
+                        <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner px-6 md:px-8 pb-8">
+                            <p class="text-gray-700 text-sm leading-loose border-t border-gray-100 pt-4">
+                                投稿内容や日数などによって異なりますので、ご相談の上で決めさせていただきます。まずはお気軽にご連絡ください。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 md:py-32 relative">
+    <section id="contact" class="py-24 md:py-32 relative overflow-hidden">
         <div class="container mx-auto px-6 max-w-4xl relative z-10">
-            <div class="bg-white p-8 md:p-16 shadow-2xl reveal-element border-t-4 border-secondary">
-                <div class="text-center mb-12">
-                    <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">無料相談・お問い合わせ</h2>
+            <div class="bg-white p-8 md:p-16 shadow-2xl reveal-element border-t-4 border-secondary text-center relative">
+                <!-- Decorative background text -->
+                <span class="absolute top-4 left-1/2 -translate-x-1/2 text-[10rem] font-serif text-gray-50 opacity-20 pointer-events-none w-full select-none">CONTACT</span>
+
+                <div class="mb-12 relative z-10">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">PRのご相談・お問い合わせ</h2>
                     <p class="text-gray-600 leading-relaxed">
-                        お店の現状や悩みをお聞かせください。<br>
-                        些細なことでも構いません。
+                        PRのご相談やお問い合わせは下記のフォームよりご連絡ください。
                     </p>
                 </div>
 
-                <form class="space-y-8">
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <label class="block text-xs font-bold tracking-widest mb-2 text-gray-500 uppercase">Shop Name</label>
-                            <input type="text" class="w-full bg-surface border-b border-gray-300 px-4 py-3 focus:outline-none focus:border-secondary transition-colors" placeholder="店舗名">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold tracking-widest mb-2 text-gray-500 uppercase">Your Name</label>
-                            <input type="text" class="w-full bg-surface border-b border-gray-300 px-4 py-3 focus:outline-none focus:border-secondary transition-colors" placeholder="お名前">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold tracking-widest mb-2 text-gray-500 uppercase">Email Address</label>
-                        <input type="email" class="w-full bg-surface border-b border-gray-300 px-4 py-3 focus:outline-none focus:border-secondary transition-colors" placeholder="example@email.com">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold tracking-widest mb-2 text-gray-500 uppercase">Message</label>
-                        <textarea rows="4" class="w-full bg-surface border-b border-gray-300 px-4 py-3 focus:outline-none focus:border-secondary transition-colors" placeholder="ご相談内容をご記入ください"></textarea>
-                    </div>
-
-                    <div class="text-center pt-8">
-                        <button class="bg-primary text-white px-12 py-4 rounded-sm hover:bg-secondary transition-colors duration-300 tracking-widest text-sm font-bold shadow-lg">
-                            送信する
-                        </button>
-                    </div>
-                </form>
-                
-                <div class="mt-12 text-center border-t border-gray-100 pt-8">
-                    <p class="text-xs text-gray-400 tracking-widest mb-2">TELEPHONE</p>
-                    <a href="tel:03-0000-0000" class="font-serif text-2xl md:text-3xl hover:text-secondary transition">03-XXXX-XXXX</a>
-                    <p class="text-xs text-gray-400 mt-2">平日 10:00 - 18:00</p>
+                <!-- Contact Button -->
+                <div class="flex flex-col items-center justify-center space-y-6 relative z-10">
+                    <a href="#" class="inline-flex items-center gap-4 bg-primary text-white px-12 py-5 rounded-sm hover:bg-secondary transition-colors duration-300 tracking-widest text-base font-bold shadow-lg transform hover:-translate-y-1">
+                        <span>お問い合わせフォームへ</span>
+                        <i class="fas fa-external-link-alt text-sm"></i>
+                    </a>
+                    <p class="text-xs text-gray-400">※外部フォーム（Googleフォーム等）へ移動します</p>
                 </div>
+                
             </div>
         </div>
         
         <!-- Background decoration -->
         <div class="absolute bottom-0 left-0 w-full h-1/2 bg-surface -z-10"></div>
+        <div class="absolute top-1/4 -right-20 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 -left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-primary text-white pt-20 pb-10">
+    <footer class="bg-primary text-white pt-20 pb-10 border-t border-white/10">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center md:items-start mb-16 gap-10 text-center md:text-left">
                 <div>
-                    <div class="text-2xl font-serif font-bold tracking-widest mb-4">大田区サンポット</div>
+                    <div class="text-2xl font-serif font-bold tracking-widest mb-6">大田区サンポット</div>
                     <p class="text-white/60 text-sm leading-relaxed">
-                        東京都大田区XX-XX-XX<br>
-                        デザインで街を灯す。
+                        都内で最も広い大田区の魅力を発信
                     </p>
                 </div>
                 <div class="flex space-x-8">
-                    <a href="#" class="text-white/60 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
-                    <a href="#" class="text-white/60 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
-                    <a href="#" class="text-white/60 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white hover:bg-white/10 transition duration-300">
+                        <i class="fab fa-instagram text-lg"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white hover:bg-white/10 transition duration-300">
+                        <i class="fab fa-twitter text-lg"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white hover:bg-white/10 transition duration-300">
+                        <i class="fab fa-facebook-f text-lg"></i>
+                    </a>
                 </div>
             </div>
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white/40 tracking-widest">
-                <p>&copy; 2026 OTA-KU SUNPOT. All rights reserved.</p>
+                <p>&copy; 2026 大田区サンポット. All rights reserved.</p>
                 <div class="mt-4 md:mt-0 space-x-6">
-                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition underline-offset-4 hover:underline">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition underline-offset-4 hover:underline">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Scroll Reveal Animation
+        // Scroll Reveal Animation (Intersection Observer)
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -452,7 +511,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // 一度表示されたら監視を解除（オプション）
+                    // 一度表示されたら監視を解除する場合はコメントアウトを外す
                     // observer.unobserve(entry.target);
                 }
             });
@@ -465,23 +524,61 @@
         // Header Style Change on Scroll
         const header = document.getElementById('header');
         const logoText = document.getElementById('logo-text');
+        const menuBtn = document.getElementById('menu-btn');
+        const desktopMenuLinks = document.querySelectorAll('#desktop-menu a');
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                header.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-4');
+                // Scrolled state: White background, dark text
+                header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-3');
                 header.classList.remove('py-6');
+                
                 logoText.classList.remove('text-white', 'mix-blend-difference');
                 logoText.classList.add('text-primary');
+
+                // Update Menu Button Color
+                menuBtn.classList.remove('text-white', 'mix-blend-difference');
+                menuBtn.classList.add('text-primary');
+
+                // Update Desktop Menu Links
+                desktopMenuLinks.forEach(link => {
+                    if(!link.classList.contains('bg-white')) { // Skip CTA button
+                        link.classList.remove('text-white');
+                        link.classList.add('text-primary');
+                    } else {
+                         // CTA Button Style change for contrast
+                         link.classList.remove('bg-white', 'text-primary');
+                         link.classList.add('bg-primary', 'text-white');
+                    }
+                });
+
             } else {
-                header.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-4');
+                // Top state: Transparent background, white text
+                header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-3');
                 header.classList.add('py-6');
+                
                 logoText.classList.add('text-white', 'mix-blend-difference');
                 logoText.classList.remove('text-primary');
+
+                 // Update Menu Button Color
+                 menuBtn.classList.add('text-white', 'mix-blend-difference');
+                 menuBtn.classList.remove('text-primary');
+
+                // Update Desktop Menu Links
+                desktopMenuLinks.forEach(link => {
+                    if(!link.classList.contains('bg-primary')) {
+                        link.classList.add('text-white');
+                        link.classList.remove('text-primary');
+                    } else {
+                        // Revert CTA Button
+                         link.classList.add('bg-white', 'text-primary');
+                         link.classList.remove('bg-primary', 'text-white');
+                    }
+                });
             }
         });
 
         // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
         let isMenuOpen = false;
@@ -489,32 +586,68 @@
         menuBtn.addEventListener('click', () => {
             isMenuOpen = !isMenuOpen;
             if (isMenuOpen) {
-                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
                 menuBtn.innerHTML = '<i class="fas fa-times text-2xl"></i>';
                 document.body.style.overflow = 'hidden';
+                
+                // Ensure button is visible on white background
+                if (window.scrollY <= 50) {
+                     menuBtn.classList.remove('text-white', 'mix-blend-difference');
+                     menuBtn.classList.add('text-primary');
+                }
+
             } else {
-                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
                 menuBtn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
                 document.body.style.overflow = 'auto';
+
+                // Revert button color if at top
+                if (window.scrollY <= 50) {
+                     menuBtn.classList.add('text-white', 'mix-blend-difference');
+                     menuBtn.classList.remove('text-primary');
+                }
             }
         });
 
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 isMenuOpen = false;
-                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
                 menuBtn.innerHTML = '<i class="fas fa-bars text-2xl"></i>';
                 document.body.style.overflow = 'auto';
+                
+                if (window.scrollY <= 50) {
+                     menuBtn.classList.add('text-white', 'mix-blend-difference');
+                     menuBtn.classList.remove('text-primary');
+                }
             });
         });
 
-        // Simple Accordion Logic
-        document.querySelectorAll('#faq div').forEach(item => {
+        // Improved Accordion Logic
+        document.querySelectorAll('.faq-item').forEach(item => {
             item.addEventListener('click', () => {
-                const p = item.querySelector('p');
-                const span = item.querySelector('span');
-                p.classList.toggle('hidden');
-                span.classList.toggle('rotate-45');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.faq-icon');
+                
+                // Toggle current item
+                content.classList.toggle('is-open');
+                
+                // Rotate icon
+                if (content.classList.contains('is-open')) {
+                    icon.style.transform = 'rotate(45deg)';
+                } else {
+                    icon.style.transform = 'rotate(0deg)';
+                }
+
+                // Optional: Close other items
+                /*
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.querySelector('.accordion-content').classList.remove('is-open');
+                        otherItem.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                    }
+                });
+                */
             });
         });
     </script>
