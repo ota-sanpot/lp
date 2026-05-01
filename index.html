@@ -402,13 +402,13 @@
     <!-- FAQ Section -->
     <section id="faq" class="py-24 bg-surface washi-texture">
         <div class="container mx-auto px-6 max-w-3xl">
-            <h2 class="text-2xl md:text-4xl text-center mb-16 reveal-element">よくあるご質問</h2>
+            <h2 class="text-2xl md:text-4xl text-center mb-16 reveal-element text-primary">よくあるご質問</h2>
             
             <div class="space-y-4">
                 <!-- FAQ Item 1 -->
-                <div class="bg-base rounded-sm shadow-sm reveal-element cursor-pointer group faq-item overflow-hidden">
+                <div class="bg-base rounded-sm border border-secondary/30 reveal-element cursor-pointer group faq-item overflow-hidden">
                     <div class="p-6 md:p-8 flex justify-between items-center">
-                        <h3 class="font-bold text-base md:text-xl pr-8">掲載まではどれくらいの時間がかかりますか？</h3>
+                        <h3 class="font-bold text-base md:text-xl pr-8 text-primary">掲載まではどれくらいの時間がかかりますか？</h3>
                         <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
                     </div>
                     <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
@@ -421,9 +421,9 @@
                 </div>
 
                 <!-- FAQ Item 2 -->
-                <div class="bg-base rounded-sm shadow-sm reveal-element cursor-pointer group faq-item overflow-hidden">
+                <div class="bg-base rounded-sm border border-secondary/30 reveal-element cursor-pointer group faq-item overflow-hidden">
                     <div class="p-6 md:p-8 flex justify-between items-center">
-                        <h3 class="font-bold text-base md:text-xl pr-8">投稿や記事に店舗のこだわり（食材や想いなど）を盛り込むことはできますか？</h3>
+                        <h3 class="font-bold text-base md:text-xl pr-8 text-primary">投稿や記事に店舗のこだわり（食材や想いなど）を盛り込むことはできますか？</h3>
                         <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
                     </div>
                     <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
@@ -436,9 +436,9 @@
                 </div>
 
                 <!-- FAQ Item 3 -->
-                <div class="bg-base rounded-sm shadow-sm reveal-element cursor-pointer group faq-item overflow-hidden">
+                <div class="bg-base rounded-sm border border-secondary/30 reveal-element cursor-pointer group faq-item overflow-hidden">
                     <div class="p-6 md:p-8 flex justify-between items-center">
-                        <h3 class="font-bold text-base md:text-xl pr-8">一度PRいただいたのですが、再度PR依頼しても良いですか？</h3>
+                        <h3 class="font-bold text-base md:text-xl pr-8 text-primary">一度PRいただいたのですが、再度PR依頼しても良いですか？</h3>
                         <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
                     </div>
                     <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
@@ -451,9 +451,9 @@
                 </div>
 
                 <!-- FAQ Item 4 -->
-                <div class="bg-base rounded-sm shadow-sm reveal-element cursor-pointer group faq-item overflow-hidden">
+                <div class="bg-base rounded-sm border border-secondary/30 reveal-element cursor-pointer group faq-item overflow-hidden">
                     <div class="p-6 md:p-8 flex justify-between items-center">
-                        <h3 class="font-bold text-base md:text-xl pr-8">費用はいくらくらいかかりますか？</h3>
+                        <h3 class="font-bold text-base md:text-xl pr-8 text-primary">費用はいくらくらいかかりますか？</h3>
                         <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
                     </div>
                     <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
@@ -575,12 +575,12 @@
 
                 // Update Desktop Menu Links
                 desktopMenuLinks.forEach(link => {
-                    if(!link.classList.contains('bg-white')) { // Skip CTA button
+                    if(!link.classList.contains('bg-base')) { // Skip CTA button
                         link.classList.remove('text-white');
                         link.classList.add('text-primary');
                     } else {
                          // CTA Button Style change for contrast
-                         link.classList.remove('bg-white', 'text-primary');
+                         link.classList.remove('bg-base', 'text-primary');
                          link.classList.add('bg-primary', 'text-white');
                     }
                 });
@@ -604,7 +604,7 @@
                         link.classList.remove('text-primary');
                     } else {
                         // Revert CTA Button
-                         link.classList.add('bg-white', 'text-primary');
+                         link.classList.add('bg-base', 'text-primary');
                          link.classList.remove('bg-primary', 'text-white');
                     }
                 });
