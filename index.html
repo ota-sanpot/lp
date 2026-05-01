@@ -555,15 +555,11 @@
                 menuBtn.classList.remove('text-white', 'mix-blend-difference');
                 menuBtn.classList.add('text-primary');
 
-                // Update Desktop Menu Links
+                // Update Desktop Menu Links (CTA button bg-secondary はそのまま)
                 desktopMenuLinks.forEach(link => {
-                    if(!link.classList.contains('bg-secondary')) { // Skip CTA button
+                    if(!link.classList.contains('bg-secondary')) {
                         link.classList.remove('text-white');
                         link.classList.add('text-primary');
-                    } else {
-                         // CTA Button Style change for contrast
-                         link.classList.remove('bg-secondary', 'text-primary');
-                         link.classList.add('bg-primary', 'text-white');
                     }
                 });
 
@@ -579,15 +575,11 @@
                  menuBtn.classList.add('text-white', 'mix-blend-difference');
                  menuBtn.classList.remove('text-primary');
 
-                // Update Desktop Menu Links
+                // Update Desktop Menu Links (CTA button bg-secondary はそのまま)
                 desktopMenuLinks.forEach(link => {
-                    if(!link.classList.contains('bg-primary')) {
+                    if(!link.classList.contains('bg-secondary')) {
                         link.classList.add('text-white');
                         link.classList.remove('text-primary');
-                    } else {
-                        // Revert CTA Button
-                         link.classList.add('bg-secondary', 'text-primary');
-                         link.classList.remove('bg-primary', 'text-white');
                     }
                 });
             }
