@@ -123,7 +123,7 @@
     <div class="bg-noise"></div>
 
     <!-- Navigation -->
-    <header id="header" class="fixed w-full top-0 z-40 transition-all duration-500 py-6">
+    <header id="header" class="fixed w-full top-0 z-50 transition-all duration-500 py-6">
         <nav class="container mx-auto px-6 md:px-12">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
@@ -156,15 +156,15 @@
                 </button>
             </div>
         </nav>
-        
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-base z-40 flex flex-col justify-center items-center space-y-8 opacity-0 pointer-events-none transition-all duration-300 transform scale-95">
-            <a href="#about" class="text-xl font-semibold mobile-link hover:text-secondary transition">大田区サンポットとは</a>
-            <a href="#features" class="text-xl font-semibold mobile-link hover:text-secondary transition">特徴</a>
-            <a href="#flow" class="text-xl font-semibold mobile-link hover:text-secondary transition">PRの流れ</a>
-            <a href="https://forms.gle/Ytw7PbJyXqRP8eAJA" target="_blank" rel="noopener noreferrer" class="text-xl font-semibold mobile-link hover:text-secondary transition">PRのご依頼はこちら</a>
-        </div>
     </header>
+
+    <!-- Mobile Menu Overlay (headerの外に配置：scroll時のbackdrop-filterがfixed配置の包含ブロックを作り、メニューがheader枠に閉じ込められる不具合を回避) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-base z-40 flex flex-col justify-center items-center space-y-8 opacity-0 pointer-events-none transition-all duration-300 transform scale-95">
+        <a href="#about" class="text-xl font-semibold mobile-link hover:text-secondary transition">大田区サンポットとは</a>
+        <a href="#features" class="text-xl font-semibold mobile-link hover:text-secondary transition">特徴</a>
+        <a href="#flow" class="text-xl font-semibold mobile-link hover:text-secondary transition">PRの流れ</a>
+        <a href="https://forms.gle/Ytw7PbJyXqRP8eAJA" target="_blank" rel="noopener noreferrer" class="text-xl font-semibold mobile-link hover:text-secondary transition">PRのご依頼はこちら</a>
+    </div>
 
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
