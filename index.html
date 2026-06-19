@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 
     <link rel="icon" href="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/favicon.ico">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/favicon.ico">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/apple-touch-icon.png">
     
     <!-- Icons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
@@ -127,8 +127,8 @@
         <nav class="container mx-auto px-6 md:px-12">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
-                <a href="#" class="text-xl md:text-2xl font-semibold tracking-widest relative z-50 mix-blend-difference text-white transition-colors duration-300 group" id="logo-text">
-                    大田区サンポット
+                <a href="#" class="relative z-50 transition-all duration-300 group" id="logo-text">
+                    <img src="images/logo.png" alt="大田区サンポット PR" class="h-12 md:h-14 w-auto" />
                 </a>
                 
                 <!-- Desktop Menu -->
@@ -528,7 +528,6 @@
 
         // Header Style Change on Scroll
         const header = document.getElementById('header');
-        const logoText = document.getElementById('logo-text');
         const menuBtn = document.getElementById('menu-btn');
         const desktopMenuLinks = document.querySelectorAll('#desktop-menu a');
 
@@ -537,9 +536,6 @@
                 // Scrolled state: White background, dark text
                 header.classList.add('bg-base/95', 'backdrop-blur-md', 'shadow-sm', 'py-3');
                 header.classList.remove('py-6');
-                
-                logoText.classList.remove('text-white', 'mix-blend-difference');
-                logoText.classList.add('text-primary');
 
                 // Update Menu Button Color
                 menuBtn.classList.remove('text-white', 'mix-blend-difference');
@@ -557,9 +553,6 @@
                 // Top state: Transparent background, white text
                 header.classList.remove('bg-base/95', 'backdrop-blur-md', 'shadow-sm', 'py-3');
                 header.classList.add('py-6');
-                
-                logoText.classList.add('text-white', 'mix-blend-difference');
-                logoText.classList.remove('text-primary');
 
                  // Update Menu Button Color
                  menuBtn.classList.add('text-white', 'mix-blend-difference');
