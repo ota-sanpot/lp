@@ -100,21 +100,56 @@
         .accordion-content {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.3s ease-out;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .accordion-content.is-open {
             grid-template-rows: 1fr;
-            max-height: 500px; /* 十分な高さを指定 */
         }
+        /* 高さは grid-template-rows だけで動かす（max-height等を併用すると2段階の動きになる） */
         .accordion-inner {
             overflow: hidden;
             min-height: 0;
             opacity: 0;
-            transition: opacity 0.3s ease-out;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .accordion-content.is-open .accordion-inner {
             opacity: 1;
         }
+
+        /* メインビジュアルのスマートフォン */
+        .hero-phones {
+            --pw: 130px; /* 1台の幅。全体の幅・高さはここから算出 */
+            position: relative;
+            width: calc(var(--pw) * 2.3);
+            height: calc(var(--pw) * 2.174 + 40px);
+            margin: 3.5rem auto 0;
+            flex-shrink: 0;
+        }
+        .hero-phone {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: var(--pw);
+            aspect-ratio: 920 / 2000;
+            padding: calc(var(--pw) * 0.028);
+            border-radius: calc(var(--pw) * 0.135);
+            background: #14100B;
+            box-shadow: 0 0 0 1px rgba(184, 147, 90, 0.45), 0 24px 48px rgba(0, 0, 0, 0.5);
+        }
+        .hero-phone img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: calc(var(--pw) * 0.107);
+        }
+        .hero-phone--left   { transform: translate(-112%, -47%) rotate(-7deg); filter: brightness(0.8); }
+        .hero-phone--right  { transform: translate(12%, -47%) rotate(7deg); filter: brightness(0.8); }
+        .hero-phone--center { transform: translate(-50%, -50%); z-index: 1; }
+        @media (min-width: 768px)  { .hero-phones { --pw: 120px; margin: 0; } }
+        @media (min-width: 1024px) { .hero-phones { --pw: 165px; } }
+        @media (min-width: 1280px) { .hero-phones { --pw: 220px; } }
+        @media (min-width: 1536px) { .hero-phones { --pw: 250px; } }
     </style>
 </head>
 <body class="bg-base text-primary antialiased relative selection:bg-secondary selection:text-white">
@@ -176,15 +211,15 @@
         </div>
 
         <!-- Content -->
-        <div class="container mx-auto px-6 relative z-10 text-center md:text-left md:flex md:items-end md:justify-between h-full pt-32 pb-32 md:pb-20">
+        <div class="container mx-auto px-6 relative z-10 text-center md:text-left md:flex md:items-center md:justify-between md:gap-8 h-full pt-32 pb-32 md:pb-20">
 
             <!-- Main Copy -->
-            <div class="reveal-element md:w-2/3">
+            <div class="reveal-element md:flex-1 md:min-w-0">
                 <p class="text-white/80 tracking-jumbo text-sm mb-3 md:mb-4 font-medium">OTA-SANPOT PR AGENCY</p>
                 <span class="inline-block border border-secondary/50 text-secondary tracking-widest px-4 py-1.5 rounded-full mb-6 md:mb-8" style="font-size:10px;">
                     大田区専門 PR エージェント
                 </span>
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-medium text-white leading-tight mb-8 drop-shadow-lg">
+                <h1 class="text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl font-medium text-white leading-tight mb-8 drop-shadow-lg">
                     貴店の魅力を、<br><span class="text-secondary">ショート動画</span>で<br class="md:hidden">届ける。
                 </h1>
                 <p class="text-white/90 text-sm md:text-xl font-light tracking-widest leading-relaxed max-w-lg drop-shadow-md">
@@ -194,6 +229,19 @@
                 <a href="#contact" class="inline-block mt-8 px-8 py-3 bg-secondary text-primary font-semibold tracking-widest text-sm rounded-full hover:bg-white hover:text-primary transition duration-300 shadow-lg">
                     まずはお気軽にご相談ください
                 </a>
+            </div>
+
+            <!-- 実際のリール投稿（スマートフォン表示） -->
+            <div class="hero-phones reveal-element" style="transition-delay: 0.2s;">
+                <div class="hero-phone hero-phone--left">
+                    <img src="images/hero-reel-2.jpg" alt="蒲田のスープ生パスタ店を紹介したリール投稿" width="600" height="1304">
+                </div>
+                <div class="hero-phone hero-phone--right">
+                    <img src="images/hero-reel-3.jpg" alt="蒲田のジビエ料理店を紹介したリール投稿" width="600" height="1304">
+                </div>
+                <div class="hero-phone hero-phone--center">
+                    <img src="images/hero-reel-1.jpg" alt="蒲田の九州料理居酒屋を紹介したリール投稿" width="600" height="1304">
+                </div>
             </div>
 
         </div>
@@ -393,9 +441,9 @@
                         <h3 class="font-bold text-[1rem] md:text-xl pr-8 text-primary">掲載まではどれくらいの時間がかかりますか？</h3>
                         <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
                     </div>
-                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-                        <div class="accordion-inner px-6 md:px-8 pb-8">
-                            <p class="text-primary text-sm leading-loose border-t border-surface pt-4">
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <p class="text-primary text-sm leading-loose border-t border-surface pt-4 mx-6 md:mx-8 mb-8">
                                 基本的には来店から1~2週間以内に投稿・掲載いたします。
                             </p>
                         </div>
@@ -408,9 +456,9 @@
                         <h3 class="font-bold text-[1rem] md:text-xl pr-8 text-primary">投稿や記事に店舗のこだわり（食材や想いなど）を盛り込むことはできますか？</h3>
                         <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
                     </div>
-                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-                        <div class="accordion-inner px-6 md:px-8 pb-8">
-                            <p class="text-primary text-sm leading-loose border-t border-surface pt-4">
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <p class="text-primary text-sm leading-loose border-t border-surface pt-4 mx-6 md:mx-8 mb-8">
                                 もちろん可能です。来店時にぜひ具体的なエピソードやこだわりポイントをお教えください。
                             </p>
                         </div>
@@ -423,9 +471,9 @@
                         <h3 class="font-bold text-[1rem] md:text-xl pr-8 text-primary">一度PRいただいたのですが、再度PR依頼しても良いですか？</h3>
                         <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
                     </div>
-                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-                        <div class="accordion-inner px-6 md:px-8 pb-8">
-                            <p class="text-primary text-sm leading-loose border-t border-surface pt-4">
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <p class="text-primary text-sm leading-loose border-t border-surface pt-4 mx-6 md:mx-8 mb-8">
                                 可能です。例えば、季節限定メニューや商品の変更等に合わせて再度取材の上、PRさせていただきます。
                             </p>
                         </div>
@@ -438,9 +486,9 @@
                         <h3 class="font-bold text-[1rem] md:text-xl pr-8 text-primary">費用はいくらくらいかかりますか？</h3>
                         <span class="text-secondary text-2xl transition-transform duration-300 flex-shrink-0 faq-icon">+</span>
                     </div>
-                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-                        <div class="accordion-inner px-6 md:px-8 pb-8">
-                            <p class="text-primary text-sm leading-loose border-t border-surface pt-4">
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <p class="text-primary text-sm leading-loose border-t border-surface pt-4 mx-6 md:mx-8 mb-8">
                                 投稿内容や日数などによって異なりますので、ご相談の上で決めさせていただきます。まずはお気軽にご連絡ください。
                             </p>
                         </div>
