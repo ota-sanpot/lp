@@ -150,6 +150,52 @@
         @media (min-width: 1024px) { .hero-phones { --pw: 165px; } }
         @media (min-width: 1280px) { .hero-phones { --pw: 220px; } }
         @media (min-width: 1536px) { .hero-phones { --pw: 250px; } }
+
+        /* リール投稿の横スライド */
+        .reel-marquee {
+            --pw: 150px;
+            --gap: 18px;
+            overflow: hidden;
+            padding: 12px 0 44px;
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+        }
+        .reel-track {
+            display: flex;
+            gap: var(--gap);
+            width: max-content;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            animation: reelSlide 70s linear infinite;
+        }
+        .reel-marquee:hover .reel-track { animation-play-state: paused; }
+        .reel-phone {
+            flex: 0 0 auto;
+            width: var(--pw);
+            aspect-ratio: 920 / 2000;
+            padding: calc(var(--pw) * 0.028);
+            border-radius: calc(var(--pw) * 0.135);
+            background: #14100B;
+            box-shadow: 0 0 0 1px rgba(184, 147, 90, 0.45), 0 18px 32px rgba(0, 0, 0, 0.45);
+        }
+        .reel-phone img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: calc(var(--pw) * 0.107);
+        }
+        /* 2回並べたうちの1回分（＋gap半分）だけ動かして先頭に戻す */
+        @keyframes reelSlide {
+            to { transform: translateX(calc(-50% - var(--gap) / 2)); }
+        }
+        @media (min-width: 768px)  { .reel-marquee { --pw: 190px; --gap: 28px; } }
+        @media (min-width: 1280px) { .reel-marquee { --pw: 220px; --gap: 32px; } }
+        @media (prefers-reduced-motion: reduce) {
+            .reel-marquee { overflow-x: auto; }
+            .reel-track { animation: none; }
+        }
     </style>
 </head>
 <body class="bg-base text-primary antialiased relative selection:bg-secondary selection:text-white">
@@ -305,25 +351,84 @@
                 <p class="text-white/50 text-sm leading-loose">「大田区で話題のお店」として認知されると、近隣ユーザーへの連鎖的なシェアが起きやすくなります。サンポットとの連携でさらに効果を高めます。</p>
             </div>
         </div>
+    </div>
 
-        <!-- Image placeholders (9:16 portrait / Reels format) -->
-        <div class="grid grid-cols-3 gap-4 max-w-2xl md:max-w-4xl mx-auto mt-12 reveal-element" style="transition-delay: 0.2s;">
-            <div class="relative w-full rounded-xl overflow-hidden" style="aspect-ratio: 9/16;">
-                <img src="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/1.png"
-                     alt="ショート動画 実績01"
-                     class="absolute inset-0 w-full h-full object-cover">
-            </div>
-            <div class="relative w-full rounded-xl overflow-hidden" style="aspect-ratio: 9/16;">
-                <img src="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/2.png"
-                     alt="ショート動画 実績02"
-                     class="absolute inset-0 w-full h-full object-cover">
-            </div>
-            <div class="relative w-full rounded-xl overflow-hidden" style="aspect-ratio: 9/16;">
-                <img src="https://raw.githubusercontent.com/ota-sanpot/lp/main/images/3.png"
-                     alt="ショート動画 実績03"
-                     class="absolute inset-0 w-full h-full object-cover">
-            </div>
-        </div>
+    <!-- 実際のリール投稿（横に流れるスライド。同じ並びを2回置いて継ぎ目なくループ） -->
+    <div class="reel-marquee relative z-10 mt-14 reveal-element" style="transition-delay: 0.2s;">
+        <ul class="reel-track">
+                <li class="reel-phone">
+                    <img src="images/hero-reel-1.jpg" alt="蒲田の九州料理居酒屋を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-10.jpg" alt="大田区サンポット人気投稿ランキングを紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-4.jpg" alt="蒲田の家系ラーメン店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-2.jpg" alt="蒲田のスープ生パスタ店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-5.jpg" alt="大森の焼肉店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-11.jpg" alt="蒲田の焼肉店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-6.jpg" alt="糀谷のカフェを紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-3.jpg" alt="蒲田のジビエ料理店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-7.jpg" alt="蒲田の蟹ラーメン店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-12.jpg" alt="大森のグリークヨーグルト店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-8.jpg" alt="池上のもんじゃ店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone">
+                    <img src="images/hero-reel-9.jpg" alt="大森のハンバーガー店を紹介したリール投稿" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-1.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-10.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-4.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-2.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-5.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-11.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-6.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-3.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-7.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-12.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-8.jpg" alt="" width="600" height="1304">
+                </li>
+                <li class="reel-phone" aria-hidden="true">
+                    <img src="images/hero-reel-9.jpg" alt="" width="600" height="1304">
+                </li>
+        </ul>
     </div>
 </section>
 
