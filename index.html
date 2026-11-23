@@ -196,6 +196,51 @@
             .reel-marquee { overflow-x: auto; }
             .reel-track { animation: none; }
         }
+
+        /* お客様の声・PR導入事例（クラスは case- で始めて既存と衝突させない） */
+        .case-photo {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            background: #F0E8D8;
+        }
+        .case-photo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .case-card:hover .case-photo img { transform: scale(1.04); }
+        .case-label {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: .15em;
+            color: #B8935A;
+            border-bottom: 1px solid rgba(184, 147, 90, 0.5);
+            padding-bottom: 2px;
+            margin-bottom: 6px;
+        }
+        .case-result {
+            background: #2C2416;
+            color: #FAF7F0;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+        }
+        .case-result li {
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+            line-height: 1.7;
+        }
+        .case-result li + li { margin-top: 0.35rem; }
+        .case-result .case-check { color: #B8935A; flex-shrink: 0; margin-top: 0.3em; font-size: 0.8em; }
+        .case-more > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        .case-more > summary::-webkit-details-marker { display: none; }
+        .case-more[open] .case-more-icon { transform: rotate(45deg); }
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WJZ89HJLYR"></script>
@@ -226,6 +271,10 @@
                         大田区サンポットとは
                         <span class="absolute bottom-0 left-0 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full"></span>
                     </a>
+                    <a href="#cases" class="text-white hover:text-secondary transition relative group py-2">
+                        導入事例
+                        <span class="absolute bottom-0 left-0 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
                     <a href="#features" class="text-white hover:text-secondary transition relative group py-2">
                         特徴
                         <span class="absolute bottom-0 left-0 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full"></span>
@@ -250,6 +299,7 @@
     <!-- Mobile Menu Overlay (headerの外に配置：scroll時のbackdrop-filterがfixed配置の包含ブロックを作り、メニューがheader枠に閉じ込められる不具合を回避) -->
     <div id="mobile-menu" class="fixed inset-0 bg-base z-40 flex flex-col justify-center items-center space-y-8 opacity-0 pointer-events-none transition-all duration-300 transform scale-95">
         <a href="#about" class="text-xl font-semibold mobile-link hover:text-secondary transition">大田区サンポットとは</a>
+        <a href="#cases" class="text-xl font-semibold mobile-link hover:text-secondary transition">導入事例</a>
         <a href="#features" class="text-xl font-semibold mobile-link hover:text-secondary transition">特徴</a>
         <a href="#flow" class="text-xl font-semibold mobile-link hover:text-secondary transition">PRの流れ</a>
         <a href="https://forms.gle/Ytw7PbJyXqRP8eAJA" target="_blank" rel="noopener noreferrer" class="text-xl font-semibold mobile-link hover:text-secondary transition">PRのご依頼はこちら</a>
@@ -437,6 +487,221 @@
                     <img src="images/hero-reel-9.jpg" alt="" width="600" height="1304">
                 </li>
         </ul>
+    </div>
+</section>
+
+<!-- Case Studies Section（お客様の声・PR導入事例）
+     写真の差し替え: images/cases/case-01.jpg〜case-06.jpg を同じ名前で上書き（横4:3・1200×900推奨）
+     店舗名は掲載許可をいただいた店舗のみ「case-store」の位置に追記する -->
+<section id="cases" class="py-24 md:py-40 relative washi-texture">
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-16 md:mb-24 reveal-element">
+            <span class="text-secondary tracking-widest text-xs font-semibold block mb-4">CASE STUDY</span>
+            <h2 class="text-2xl md:text-5xl font-semibold mb-6">お客様の声・PR導入事例</h2>
+            <p class="text-[1rem] md:text-xl text-primary mb-6">地域のお店に、こんな変化が生まれています。</p>
+            <p class="text-text text-sm leading-loose max-w-xl mx-auto">
+                新規オープン時の認知拡大から、既存店の集客改善、リピーターの獲得まで。実際にPRをご利用いただいた店舗の事例をご紹介します。
+            </p>
+        </div>
+
+        <!-- メイン事例（CASE 01〜03）：課題・施策・成果を詳しく -->
+        <div class="max-w-5xl mx-auto space-y-16 md:space-y-28">
+
+            <!-- CASE 01 -->
+            <article class="case-card grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start reveal-element">
+                <div class="md:col-span-5">
+                    <div class="case-photo rounded-lg shadow-lg">
+                        <img src="images/cases/case-01.jpg" alt="ヨーロピアンダイニングで提供されたスパークリングワイン" width="1200" height="900" loading="lazy">
+                    </div>
+                </div>
+                <div class="md:col-span-7">
+                    <p class="flex items-baseline gap-3 mb-3">
+                        <span class="text-3xl md:text-4xl font-semibold text-secondary/40 leading-none">01</span>
+                        <span class="text-xs tracking-widest text-secondary">CASE 01｜ヨーロピアンダイニング</span>
+                    </p>
+                    <span class="inline-block text-[11px] tracking-widest text-muted border border-secondary/40 rounded-full px-3 py-1 mb-4">予約獲得・集客改善</span>
+                    <h3 class="text-lg md:text-2xl font-semibold leading-relaxed mb-6">開業から数ヶ月。伸び悩んでいた予約状況が、PRをきっかけに大きく変化。</h3>
+                    <div class="space-y-5 text-sm leading-loose text-text">
+                        <div>
+                            <span class="case-label">課題</span>
+                            <p>新規開業から数ヶ月が経過したヨーロピアンダイニング。こだわりの料理や空間を提供していたものの、当初は認知が十分に広がらず、予約がほとんど入らない状況でした。</p>
+                        </div>
+                        <div>
+                            <span class="case-label">施策</span>
+                            <p>そこで、大田区サンポットでお店の魅力を取り上げ、料理や店内の雰囲気、こだわりをInstagramで発信。</p>
+                        </div>
+                        <div>
+                            <span class="case-label">変化</span>
+                            <p>その結果、投稿をきっかけに大きな反響が生まれ、予約が一気に増加。予約で埋まるほどの成果につながりました。</p>
+                        </div>
+                    </div>
+                    <div class="case-result mt-6">
+                        <p class="text-[11px] tracking-widest text-secondary mb-2">RESULT</p>
+                        <ul class="text-sm md:text-[1rem] font-semibold">
+                            <li><i class="fas fa-check case-check"></i><span>PRをきっかけに予約が大幅に増加</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CASE 02（PCでは写真を右に） -->
+            <article class="case-card grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start reveal-element">
+                <div class="md:col-span-5 md:order-2">
+                    <div class="case-photo rounded-lg shadow-lg">
+                        <img src="images/cases/case-02.jpg" alt="寿司屋で提供された光り物の握り" width="1200" height="900" loading="lazy">
+                    </div>
+                </div>
+                <div class="md:col-span-7 md:order-1">
+                    <p class="flex items-baseline gap-3 mb-3">
+                        <span class="text-3xl md:text-4xl font-semibold text-secondary/40 leading-none">02</span>
+                        <span class="text-xs tracking-widest text-secondary">CASE 02｜寿司屋</span>
+                    </p>
+                    <span class="inline-block text-[11px] tracking-widest text-muted border border-secondary/40 rounded-full px-3 py-1 mb-4">新規開業・認知拡大</span>
+                    <h3 class="text-lg md:text-2xl font-semibold leading-relaxed mb-6">新規オープン時の認知拡大を後押し。PRの効果を実感した事例。</h3>
+                    <div class="space-y-5 text-sm leading-loose text-text">
+                        <div>
+                            <span class="case-label">施策</span>
+                            <p>新規オープンする寿司屋の認知拡大を目的に、大田区サンポットでPRを実施。お店の魅力や料理、こだわりを地域の方々に向けて発信し、新しいお店を知ってもらうきっかけをつくりました。</p>
+                        </div>
+                        <div>
+                            <span class="case-label">店舗からの評価</span>
+                            <p>店舗からは、PRの効果について「頼まないのがもったいないと思うほど効果があった」という趣旨の高い評価もいただいています。</p>
+                        </div>
+                    </div>
+                    <div class="case-result mt-6">
+                        <p class="text-[11px] tracking-widest text-secondary mb-2">RESULT</p>
+                        <ul class="text-sm md:text-[1rem] font-semibold">
+                            <li><i class="fas fa-check case-check"></i><span>新規オープン時の認知拡大</span></li>
+                            <li><i class="fas fa-check case-check"></i><span>店舗からも高い費用対効果の評価</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CASE 03 -->
+            <article class="case-card grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start reveal-element">
+                <div class="md:col-span-5">
+                    <div class="case-photo rounded-lg shadow-lg">
+                        <img src="images/cases/case-03.jpg" alt="居酒屋の生ビール" width="1200" height="900" loading="lazy">
+                    </div>
+                </div>
+                <div class="md:col-span-7">
+                    <p class="flex items-baseline gap-3 mb-3">
+                        <span class="text-3xl md:text-4xl font-semibold text-secondary/40 leading-none">03</span>
+                        <span class="text-xs tracking-widest text-secondary">CASE 03｜居酒屋</span>
+                    </p>
+                    <span class="inline-block text-[11px] tracking-widest text-muted border border-secondary/40 rounded-full px-3 py-1 mb-4">新規顧客獲得・売上の安定化</span>
+                    <h3 class="text-lg md:text-2xl font-semibold leading-relaxed mb-6">常連客中心のお店に、新しいお客様との出会いを。</h3>
+                    <div class="space-y-5 text-sm leading-loose text-text">
+                        <div>
+                            <span class="case-label">課題</span>
+                            <p>これまでリピーターのお客様を中心に営業していた居酒屋。常連客に支えられていた一方で、新しいお客様への認知拡大や新規顧客の獲得が課題となっていました。</p>
+                        </div>
+                        <div>
+                            <span class="case-label">施策</span>
+                            <p>そこで、大田区サンポットを通じて、お店の魅力や看板メニュー、こだわりをInstagramで発信。</p>
+                        </div>
+                        <div>
+                            <span class="case-label">変化</span>
+                            <p>これまでお店を知らなかった地域の方々にも情報が届き、投稿をきっかけとした新規来店が増加しました。リピーターに加えて新しいお客様との接点が生まれ、顧客層の拡大と売上の安定化につながりました。</p>
+                        </div>
+                    </div>
+                    <div class="case-result mt-6">
+                        <p class="text-[11px] tracking-widest text-secondary mb-2">RESULT</p>
+                        <ul class="text-sm md:text-[1rem] font-semibold">
+                            <li><i class="fas fa-check case-check"></i><span>新規顧客の増加</span></li>
+                            <li><i class="fas fa-check case-check"></i><span>顧客層の拡大・売上の安定化</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- コンパクト事例（CASE 04〜06）：写真と成果を中心に -->
+        <div class="max-w-5xl mx-auto mt-20 md:mt-32">
+            <p class="text-center text-secondary tracking-widest text-xs font-semibold mb-10 reveal-element">MORE CASES</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-xl mx-auto lg:max-w-none">
+
+                <!-- CASE 04 -->
+                <article class="case-card bg-base rounded-lg overflow-hidden shadow-md flex flex-col reveal-element" style="border-top: 3px solid #B8935A;">
+                    <div class="case-photo">
+                        <img src="images/cases/case-04.jpg" alt="焼肉屋の看板メニューの霜降り肉" width="1200" height="900" loading="lazy" style="object-position: center 40%;">
+                    </div>
+                    <div class="p-5 md:p-6 flex flex-col flex-1">
+                        <p class="text-xs tracking-widest text-secondary mb-2">CASE 04｜焼肉屋</p>
+                        <p class="text-[11px] tracking-widest text-muted mb-3">新規顧客獲得・看板メニューの販売促進</p>
+                        <h3 class="text-[1rem] font-semibold leading-relaxed mb-4 text-primary">新しいお客様の獲得に加え、看板メニューの注文数にも変化。</h3>
+                        <div class="case-result mt-auto">
+                            <ul class="text-sm font-semibold">
+                                <li><i class="fas fa-check case-check"></i><span>新規顧客の増加</span></li>
+                                <li><i class="fas fa-check case-check"></i><span>看板メニューの注文数が明らかに増加</span></li>
+                            </ul>
+                        </div>
+                        <details class="case-more mt-4 text-sm">
+                            <summary class="flex items-center justify-between text-muted hover:text-secondary transition-colors text-xs tracking-widest">事例の詳細を読む<span class="case-more-icon text-secondary text-lg leading-none transition-transform duration-300">+</span></summary>
+                            <div class="pt-3 space-y-3 leading-loose text-text">
+                                <p>焼肉屋の魅力やこだわりのメニューをInstagramでPR。お店の特徴が伝わる発信を行った結果、これまでお店を知らなかった新規のお客様の来店が増加しました。</p>
+                                <p>さらに、PRで重点的に紹介した看板メニューについても、注文数が明らかに増加。お店を知ってもらうだけでなく、実際のメニュー注文にもつながった事例です。</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <!-- CASE 05 -->
+                <article class="case-card bg-base rounded-lg overflow-hidden shadow-md flex flex-col reveal-element" style="border-top: 3px solid #B8935A; transition-delay: 0.1s;">
+                    <div class="case-photo">
+                        <img src="images/cases/case-05.jpg" alt="ラーメン屋の白湯ラーメン" width="1200" height="900" loading="lazy">
+                    </div>
+                    <div class="p-5 md:p-6 flex flex-col flex-1">
+                        <p class="text-xs tracking-widest text-secondary mb-2">CASE 05｜ラーメン屋</p>
+                        <p class="text-[11px] tracking-widest text-muted mb-3">来店促進・新規顧客獲得</p>
+                        <h3 class="text-[1rem] font-semibold leading-relaxed mb-4 text-primary">久しぶりの常連客も、新規のお客様も。来店数が大幅に増加。</h3>
+                        <div class="case-result mt-auto">
+                            <ul class="text-sm font-semibold">
+                                <li><i class="fas fa-check case-check"></i><span>来店数が大幅に増加</span></li>
+                                <li><i class="fas fa-check case-check"></i><span>新規顧客の獲得</span></li>
+                                <li><i class="fas fa-check case-check"></i><span>休眠顧客・久しぶりのリピーターの再来店</span></li>
+                            </ul>
+                        </div>
+                        <details class="case-more mt-4 text-sm">
+                            <summary class="flex items-center justify-between text-muted hover:text-secondary transition-colors text-xs tracking-widest">事例の詳細を読む<span class="case-more-icon text-secondary text-lg leading-none transition-transform duration-300">+</span></summary>
+                            <div class="pt-3 space-y-3 leading-loose text-text">
+                                <p>ラーメン屋の魅力やメニューをInstagramで発信し、地域の方々への認知拡大を図りました。その結果、投稿をきっかけに来店する新規のお客様が増加。</p>
+                                <p>さらに、以前は来店していたものの、しばらく足が遠のいていたお客様が再び訪れるなど、久しぶりのリピーターの来店にもつながりました。</p>
+                                <p>新しいお客様との接点を生み出すと同時に、既存のお客様の再来店も促し、店舗全体の来店数が大幅に増加した事例です。</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <!-- CASE 06 -->
+                <article class="case-card bg-base rounded-lg overflow-hidden shadow-md flex flex-col reveal-element" style="border-top: 3px solid #B8935A; transition-delay: 0.2s;">
+                    <div class="case-photo">
+                        <img src="images/cases/case-06.jpg" alt="焼き鳥屋の季節限定の鶏鍋" width="1200" height="900" loading="lazy">
+                    </div>
+                    <div class="p-5 md:p-6 flex flex-col flex-1">
+                        <p class="text-xs tracking-widest text-secondary mb-2">CASE 06｜焼き鳥屋</p>
+                        <p class="text-[11px] tracking-widest text-muted mb-3">季節限定メニュー・集客促進</p>
+                        <h3 class="text-[1rem] font-semibold leading-relaxed mb-4 text-primary">季節限定メニューをきっかけに、大きな集客とリピーターの獲得へ。</h3>
+                        <div class="case-result mt-auto">
+                            <ul class="text-sm font-semibold">
+                                <li><i class="fas fa-check case-check"></i><span>季節限定メニューをきっかけに大幅な集客</span></li>
+                                <li><i class="fas fa-check case-check"></i><span>新規来店からリピーター獲得へ</span></li>
+                            </ul>
+                        </div>
+                        <details class="case-more mt-4 text-sm">
+                            <summary class="flex items-center justify-between text-muted hover:text-secondary transition-colors text-xs tracking-widest">事例の詳細を読む<span class="case-more-icon text-secondary text-lg leading-none transition-transform duration-300">+</span></summary>
+                            <div class="pt-3 space-y-3 leading-loose text-text">
+                                <p>焼き鳥屋の季節限定メニューを中心に、大田区サンポットでPRを実施。期間限定ならではのメニューの魅力や、お店で楽しめる料理をInstagramで積極的に発信しました。</p>
+                                <p>その結果、季節限定メニューをきっかけとした大幅な集客・来店につながりました。さらに、一度来店したお客様がその後も足を運んでくださるなど、新たなリピーターの獲得にもつながった事例です。</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+            </div>
+
+            <p class="text-center text-[11px] text-muted leading-relaxed mt-10 reveal-element">※ 掲載内容は各店舗の実例をもとにしています。成果はお店の状況によって異なります。</p>
+        </div>
     </div>
 </section>
 
