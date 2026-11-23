@@ -211,6 +211,11 @@
             object-fit: cover;
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        /* メイン事例の写真：PCでは右側の文字の高さに合わせて伸び縮みさせ、見出しとRESULTの間に余白を作らない */
+        @media (min-width: 768px) {
+            .case-photo--main { aspect-ratio: auto; height: 100%; min-height: 280px; }
+            .case-photo--main img { position: absolute; inset: 0; }
+        }
         .case-card:hover .case-photo img { transform: scale(1.04); }
         .case-label {
             display: inline-block;
@@ -512,18 +517,18 @@
                 <!-- 上段：写真と見出し・成果（PCでは同じ高さにそろえる） -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 md:items-stretch">
                     <div class="md:col-span-6">
-                        <div class="case-photo rounded-lg shadow-lg">
+                        <div class="case-photo case-photo--main rounded-lg shadow-lg">
                         <img src="images/cases/case-01.jpg" alt="ヨーロピアンダイニングで提供されたスパークリングワイン" width="1200" height="900" loading="lazy">
                         </div>
                     </div>
-                    <div class="md:col-span-6 flex flex-col">
+                    <div class="md:col-span-6 flex flex-col md:justify-center">
                         <p class="flex items-baseline gap-3 mb-3">
                         <span class="text-3xl md:text-4xl font-semibold text-secondary/40 leading-none">01</span>
                         <span class="text-xs tracking-widest text-secondary">CASE 01｜ヨーロピアンダイニング</span>
                         </p>
                         <span class="self-start inline-block text-[11px] tracking-widest text-muted border border-secondary/40 rounded-full px-3 py-1 mb-4">予約獲得・集客改善</span>
                         <h3 class="text-lg md:text-2xl font-semibold leading-relaxed mb-6 md:mb-8">開業から数ヶ月。伸び悩んでいた予約状況が、PRをきっかけに大きく変化。</h3>
-                        <div class="case-result mt-auto">
+                        <div class="case-result">
                         <p class="text-[11px] tracking-widest text-secondary mb-2">RESULT</p>
                         <ul class="text-sm md:text-[1rem] font-semibold">
                         <li><i class="fas fa-check case-check"></i><span>PRをきっかけに予約が大幅に増加</span></li>
@@ -553,18 +558,18 @@
                 <!-- 上段：写真と見出し・成果（PCでは同じ高さにそろえる） -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 md:items-stretch">
                     <div class="md:col-span-6 md:order-2">
-                        <div class="case-photo rounded-lg shadow-lg">
+                        <div class="case-photo case-photo--main rounded-lg shadow-lg">
                         <img src="images/cases/case-02.jpg" alt="寿司屋で提供された光り物の握り" width="1200" height="900" loading="lazy">
                         </div>
                     </div>
-                    <div class="md:col-span-6 md:order-1 flex flex-col">
+                    <div class="md:col-span-6 md:order-1 flex flex-col md:justify-center">
                         <p class="flex items-baseline gap-3 mb-3">
                         <span class="text-3xl md:text-4xl font-semibold text-secondary/40 leading-none">02</span>
                         <span class="text-xs tracking-widest text-secondary">CASE 02｜寿司屋</span>
                         </p>
                         <span class="self-start inline-block text-[11px] tracking-widest text-muted border border-secondary/40 rounded-full px-3 py-1 mb-4">新規開業・認知拡大</span>
                         <h3 class="text-lg md:text-2xl font-semibold leading-relaxed mb-6 md:mb-8">新規オープン時の認知拡大を後押し。PRの効果を実感した事例。</h3>
-                        <div class="case-result mt-auto">
+                        <div class="case-result">
                         <p class="text-[11px] tracking-widest text-secondary mb-2">RESULT</p>
                         <ul class="text-sm md:text-[1rem] font-semibold">
                         <li><i class="fas fa-check case-check"></i><span>新規オープン時の認知拡大</span></li>
@@ -591,18 +596,18 @@
                 <!-- 上段：写真と見出し・成果（PCでは同じ高さにそろえる） -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 md:items-stretch">
                     <div class="md:col-span-6">
-                        <div class="case-photo rounded-lg shadow-lg">
+                        <div class="case-photo case-photo--main rounded-lg shadow-lg">
                         <img src="images/cases/case-03.jpg" alt="居酒屋の生ビール" width="1200" height="900" loading="lazy">
                         </div>
                     </div>
-                    <div class="md:col-span-6 flex flex-col">
+                    <div class="md:col-span-6 flex flex-col md:justify-center">
                         <p class="flex items-baseline gap-3 mb-3">
                         <span class="text-3xl md:text-4xl font-semibold text-secondary/40 leading-none">03</span>
                         <span class="text-xs tracking-widest text-secondary">CASE 03｜居酒屋</span>
                         </p>
                         <span class="self-start inline-block text-[11px] tracking-widest text-muted border border-secondary/40 rounded-full px-3 py-1 mb-4">新規顧客獲得・売上の安定化</span>
                         <h3 class="text-lg md:text-2xl font-semibold leading-relaxed mb-6 md:mb-8">常連客中心のお店に、新しいお客様との出会いを。</h3>
-                        <div class="case-result mt-auto">
+                        <div class="case-result">
                         <p class="text-[11px] tracking-widest text-secondary mb-2">RESULT</p>
                         <ul class="text-sm md:text-[1rem] font-semibold">
                         <li><i class="fas fa-check case-check"></i><span>新規顧客の増加</span></li>
